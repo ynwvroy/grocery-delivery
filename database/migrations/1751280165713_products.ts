@@ -8,7 +8,7 @@ export default class Products extends BaseSchema {
       table.increments('id')
       table.string('name', 100).notNullable()
       table.text('description')
-      table.integer('category_id').unsigned().references('id').inTable('categories')
+      table.integer('category_id').unsigned().references('id').inTable('categories').onDelete('CASCADE')
       table.text('image_url')
       table.decimal('price', 10, 2).notNullable()
       table.timestamp('created_at', { useTz: true }).defaultTo(this.now())
