@@ -11,7 +11,10 @@ export default class Products extends BaseSchema {
       table.integer('category_id').unsigned().references('id').inTable('categories').onDelete('CASCADE')
       table.text('image_url')
       table.decimal('price', 10, 2).notNullable()
+      table.integer('stock_quantity').notNullable().defaultTo(0)
+      table.date('expiry_date').nullable()
       table.timestamp('created_at', { useTz: true }).defaultTo(this.now())
+      table.timestamp('updated_at', { useTz: true }).defaultTo(this.now())
     })
   }
 

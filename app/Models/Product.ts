@@ -22,8 +22,17 @@ export default class Product extends BaseModel {
   @column()
   public price: number
 
+  @column()
+  public stockQuantity: number
+
+  @column.date()
+  public expiryDate: DateTime | null
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
+
+  @column.dateTime({ autoCreate: true, autoUpdate: true })
+  public updatedAt: DateTime
 
   @belongsTo(() => Category)
   public category: BelongsTo<typeof Category>
