@@ -3,12 +3,12 @@ import Category from 'App/Models/Category'
 
 export default class CategorySeeder extends BaseSeeder {
   public async run () {
-    await Category.createMany([
+    await Category.updateOrCreateMany('name', [
       { name: 'Dairy' },
       { name: 'Fruits' },
       { name: 'Vegetables' },
       { name: 'Bakery' },
-      { name: 'Beverages' }
+      { name: 'Beverages' },
     ])
   }
 }

@@ -2,27 +2,25 @@ import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import Product from 'App/Models/Product'
 import { DateTime } from 'luxon'
 
-export default class ProductSeeder extends BaseSeeder {
-  public async run () {
+export default class extends BaseSeeder {
+  public async run() {
     await Product.createMany([
       {
-        name: 'Whole Milk',
-        description: 'Fresh whole milk 1L',
-        price: 120,
+        name: 'Milk',
+        description: 'Fresh whole milk',
         categoryId: 1,
         imageUrl: 'https://example.com/milk.jpg',
-        stockQuantity: 50,
-        expiryDate: DateTime.fromJSDate(new Date('2025-07-20')),
+        price: 120,
+        createdAt: DateTime.now(),
       },
       {
-        name: 'Apples',
-        description: 'Red delicious apples (1kg)',
-        price: 200,
+        name: 'Orange Juice',
+        description: '100% pure orange juice',
         categoryId: 2,
-        imageUrl: 'https://example.com/apples.jpg',
-        stockQuantity: 100,
-        expiryDate: DateTime.fromJSDate(new Date('2025-07-20')),
-      }
+        imageUrl: 'https://example.com/oj.jpg',
+        price: 150,
+        createdAt: DateTime.now(),
+      },
     ])
   }
 }

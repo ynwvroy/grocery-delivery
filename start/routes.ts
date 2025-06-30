@@ -4,15 +4,17 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-// Categories routes (standalone)
-Route.get('/categories', 'CategoriesController.index')
-Route.post('/categories', 'CategoriesController.store')
-
-// Products routes
 Route.group(() => {
   Route.get('/', 'ProductsController.index')
-  Route.get('/:id', 'ProductsController.show')
+
+  // Static route comes first
+  Route.get('/categories', 'CategoriesController.index')
+  Route.post('/categories', 'CategoriesController.store')
+
   Route.post('/', 'ProductsController.store')
   Route.put('/:id', 'ProductsController.update')
   Route.delete('/:id', 'ProductsController.destroy')
+
+  // Dynamic route comes last
+  Route.get('/:id', 'ProductsController.show')
 }).prefix('/products')
