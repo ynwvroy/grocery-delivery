@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, beforeSave, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import Hash from '@ioc:Adonis/Core/Hash'
 import Order from './Order'
 import Subscription from './Subscription'
 
@@ -13,8 +14,8 @@ export default class User extends BaseModel {
   @column()
   public email: string
 
-  @column()
-  public passwordHash: string
+  @column({ serializeAs: null })
+  public password: string  // 🔁 renamed from `passwordHash`
 
   @column()
   public phoneNumber: string
@@ -27,4 +28,12 @@ export default class User extends BaseModel {
 
   @hasMany(() => Subscription)
   public subscriptions: HasMany<typeof Subscription>
+
+  // 🔐 Automatically hash password before saving
+  @beforeSave()
+  public static async hashPassword(user: User) {
+    if (user.$dirty.password) {
+      user.password = await Hash.make(user.password)
+    }
+  }
 }
